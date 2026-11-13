@@ -3,41 +3,56 @@
 {% block title %}Recipe index{% endblock %}
 
 {% block body %}
-    <h1>Recipe index</h1>
+    <h1 class="text-center text-4xl mt-5">Liste des recettes</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Time</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for recipe in recipes %}
-            <tr>
-                <td>{{ recipe.id }}</td>
-                <td>{{ recipe.name }}</td>
-                <td>{{ recipe.image }}</td>
-                <td>{{ recipe.time }}</td>
-                <td>{{ recipe.description }}</td>
-                <td>{{ recipe.status }}</td>
-                <td>
-                    <a href="{{ path('app_recipe_show', {'id': recipe.id}) }}">show</a>
-                    <a href="{{ path('app_recipe_edit', {'id': recipe.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_recipe_new') }}">Create new</a>
+    <div class="w-1/2 m-auto mt-5">
+        <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+            <table class="w-full text-sm text-left rtl:text-right text-body">
+                <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 font-medium">
+                            Nom de la recette
+                        </th>
+                        <th scope="col" class="px-6 py-3 font-medium">
+                            Auteur de la recette
+                        </th>
+                        <th scope="col" class="px-6 py-3 font-medium">
+                            Statut de la recette
+                        </th>
+                        <th scope="col" class="px-6 py-3 font-medium">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for recipe in recipes %}
+                    <tr class="bg-neutral-primary border-b border-default">
+                        <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                            {{ recipe.name }}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ recipe.author.username }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ recipe.status }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <a class="text-white bg-success box-border border border-transparent hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 rounded-full text-sm px-4 py-2.5 focus:outline-none" href="{{ path('app_recipe_show', {'id': recipe.id}) }}">Voir</a>
+                            <a class="text-white bg-warning box-border border border-transparent hover:bg-warning-strong focus:ring-4 focus:ring-warning-medium shadow-xs font-medium leading-5 rounded-full text-sm px-4 py-2.5 focus:outline-none" href="{{ path('app_recipe_edit', {'id': recipe.id}) }}">Modifier</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td class="px-6 py-4">
+                            Aucune recette pour le moment
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="flex justify-center mt-5">
+        <a class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-full text-sm px-4 py-2.5 focus:outline-none" href="{{ path('app_recipe_new') }}">Créer une recette</a>
+    </div>
 {% endblock %}

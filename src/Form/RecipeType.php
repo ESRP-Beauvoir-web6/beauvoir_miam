@@ -19,15 +19,11 @@ class RecipeType extends AbstractType
             ->add('image')
             ->add('time')
             ->add('description')
-            ->add('status')
-            ->add('author', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
+                'expanded' => true
             ])
         ;
     }

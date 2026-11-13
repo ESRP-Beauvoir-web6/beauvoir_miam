@@ -28,8 +28,12 @@ final class RecipeController extends AbstractController
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
+        $user = $this->getUser();
+        $status = "En attente";
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipe->setAuthor($user);
+            $recipe->setStatus($status);
             $entityManager->persist($recipe);
             $entityManager->flush();
 
